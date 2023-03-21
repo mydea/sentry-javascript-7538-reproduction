@@ -2,7 +2,7 @@
   "name": "sentry-repro",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node --require ./tracing.js app.js"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",

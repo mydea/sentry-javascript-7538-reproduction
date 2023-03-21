@@ -2,27 +2,12 @@
 // ESM modules. So, we use commonJS and import the app file
 // at the bottom.
 const Sentry = require("@sentry/node");
-const {
-  SentrySpanProcessor,
-  SentryPropagator,
-} = require("@sentry/opentelemetry-node");
 
 const express = require("express");
 
 const { Integrations } = require("@sentry/tracing");
 
-const { HttpInstrumentation } = require("@opentelemetry/instrumentation-http");
-const { GrpcInstrumentation } = require("@opentelemetry/instrumentation-grpc");
-
-const opentelemetry = require("@opentelemetry/sdk-node");
-const {
-  OTLPTraceExporter,
-} = require("@opentelemetry/exporter-trace-otlp-grpc");
-
 const { ProfilingIntegration } = require("@sentry/profiling-node");
-const {
-  ExpressInstrumentation,
-} = require("@opentelemetry/instrumentation-express");
 
 const app = express();
 
@@ -32,7 +17,7 @@ Sentry.init({
   enabled: true,
   debug: true,
 
-  //instrumenter: "otel",
+  instrumenter: "otel",
 
   release: "testing",
   environment: "sentry-reproduction",
@@ -52,39 +37,14 @@ Sentry.init({
   ],
 });
 
-const sdk = new opentelemetry.NodeSDK({
-  textMapPropagator: new SentryPropagator(),
-  /*
-    sampler: new opentelemetry.tracing.TraceIdRatioBasedSampler(
-      TRACE_SAMPLE_PERCENTAGE
-    ),
-    */
-  // Existing config
-  traceExporter: new OTLPTraceExporter(),
-  instrumentations: [
-    new HttpInstrumentation(),
-    // These instrumentations increase memory usage significantly so keeping disabled for now.
-    //new NetInstrumentation(),
-    //new FsInstrumentation(),
-    //new BunyanInstrumentation(),
-    //new DnsInstrumentation(),
-    new ExpressInstrumentation(),
-    new GrpcInstrumentation(),
-  ],
-
-  // Sentry config
-  spanProcessor: new SentrySpanProcessor(),
-});
-
-//otelApi.propagation.setGlobalPropagator(new SentryPropagator())
-
-sdk.start();
-
 // The request handler must be the first middleware on the app
 app.use(Sentry.Handlers.requestHandler());
+//app.use(Sentry.Handlers.tracingHandler());
 
 app.get("/", function (req, res) {
-  Sentry.addBreadcrumb("Health check");
+  Sentry.addBreadcrumb({
+    message: "Custom Breadcrumb Inserted",
+  });
   console.log("Triggered route");
   return res.json({ success: true });
 });
