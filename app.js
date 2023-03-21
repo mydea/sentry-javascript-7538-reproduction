@@ -12,7 +12,7 @@ const { ProfilingIntegration } = require("@sentry/profiling-node");
 const app = express();
 
 Sentry.init({
-  dsn: "https://570b5cb8bd594e5da60603c626595195@o1337141.ingest.sentry.io/6606495",
+  dsn: "MY_DSN_HERE",
 
   enabled: true,
   debug: true,
