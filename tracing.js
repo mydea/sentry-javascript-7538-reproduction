@@ -35,8 +35,8 @@ const sdk = new opentelemetry.NodeSDK({
   ],
 
   // Sentry config
-  spanProcessor: new SentrySpanProcessor(),
-  textMapPropagator: new SentryPropagator(),
+  // spanProcessor: new SentrySpanProcessor(),
+  // textMapPropagator: new SentryPropagator(),
 });
 
 sdk.start();

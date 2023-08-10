@@ -9,8 +9,8 @@ const { ProfilingIntegration } = require("@sentry/profiling-node");
 
 const app = express();
 
-Sentry.init({
-  dsn: "MY_DSN_HERE",
+/* Sentry.init({
+  dsn: "DSN_HERE",
 
   enabled: true,
   debug: true,
@@ -33,7 +33,7 @@ Sentry.init({
     new Sentry.Integrations.Http({ tracing: true }),
     new ProfilingIntegration(),
   ],
-});
+}); */
 
 // The request handler must be the first middleware on the app
 app.use(Sentry.Handlers.requestHandler());
