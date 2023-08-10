@@ -12,7 +12,6 @@
     "@opentelemetry/instrumentation-grpc": "^0.36.1",
     "@opentelemetry/instrumentation-http": "^0.36.1",
     "@opentelemetry/sdk-node": "^0.36.1",
-    "@opentelemetry/sdk-trace-base": "1.15.2",
     "@opentelemetry/semantic-conventions": "1.15.2",
     "@sentry/node": "7.62.0",
     "@sentry/opentelemetry-node": "7.62.0",
