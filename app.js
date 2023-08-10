@@ -5,8 +5,6 @@ const Sentry = require("@sentry/node");
 
 const express = require("express");
 
-const { Integrations } = require("@sentry/tracing");
-
 const { ProfilingIntegration } = require("@sentry/profiling-node");
 
 const app = express();
@@ -31,7 +29,7 @@ Sentry.init({
   },
 
   integrations: [
-    new Integrations.Express({ app }),
+    new Sentry.Integrations.Express({ app }),
     new Sentry.Integrations.Http({ tracing: true }),
     new ProfilingIntegration(),
   ],
