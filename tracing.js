@@ -29,7 +29,7 @@ const sdk = new opentelemetry.NodeSDK({
   traceExporter: new OTLPTraceExporter(),
   //traceExporter: new ConsoleSpanExporter(),
   instrumentations: [
-    grpcInstrumentation,
+    // grpcInstrumentation,
     new HttpInstrumentation(),
     new ExpressInstrumentation(),
   ],
